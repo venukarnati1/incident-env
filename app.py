@@ -1,19 +1,20 @@
-[project]
-name = "incident-env"
-version = "0.1.0"
-description = "Autonomous Incident & Customer Issue Resolution Environment"
-authors = [
-    { name="Venu", email="you@example.com" }
-]
-dependencies = [
-    "fastapi",
-    "uvicorn",
-    "pydantic",
-    "openenv-core>=0.2.0"
-]
+from fastapi import FastAPI
+import subprocess
 
-[project.scripts]
-server = "app:app"
+app = FastAPI()
 
-[tool.openenv]
-entry_point = "app:app"
+@app.post("/reset")
+def reset():
+    return {"status": "reset"}
+
+@app.post("/step")
+def step(action: dict):
+    task = action.get("task", "easy")
+
+    result = subprocess.run(
+        ["python", "inference.py", "--task", task],
+        capture_output=True,
+        text=True
+    )
+
+    return {"result": result.stdout}
