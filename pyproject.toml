@@ -1,10 +1,8 @@
 [project]
 name = "incident-env"
 version = "0.1.0"
-description = "Autonomous Incident & Customer Issue Resolution Environment"
-authors = [
-    { name="Venu", email="you@example.com" }
-]
+requires-python = ">=3.10"
+
 dependencies = [
     "fastapi",
     "uvicorn",
@@ -13,7 +11,7 @@ dependencies = [
 ]
 
 [project.scripts]
-server = "app:app"
+server = "server.app:main"
 
 [tool.openenv]
-entry_point = "app:app"
+entry_point = "server.app:main"
