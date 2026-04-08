@@ -1,42 +1,19 @@
-from fastapi import FastAPI
-import subprocess
+[project]
+name = "incident-env"
+version = "0.1.0"
+description = "Autonomous Incident & Customer Issue Resolution Environment"
+authors = [
+    { name="Venu", email="you@example.com" }
+]
+dependencies = [
+    "fastapi",
+    "uvicorn",
+    "pydantic",
+    "openenv-core>=0.2.0"
+]
 
-app = FastAPI()
+[project.scripts]
+server = "app:app"
 
-# Health check
-@app.get("/")
-def home():
-    return {"status": "running"}
-
-# REQUIRED: reset endpoint
-@app.post("/reset")
-def reset():
-    return {
-        "state": "reset",
-        "message": "Environment reset successful"
-    }
-
-# REQUIRED: step endpoint
-@app.post("/step")
-def step(action: dict):
-    task = action.get("task", "easy")
-
-    result = subprocess.run(
-        ["python", "inference.py", "--task", task],
-        capture_output=True,
-        text=True
-    )
-
-    return {
-        "result": result.stdout
-    }
-
-# Your existing test endpoints (keep)
-@app.get("/run/{task}")
-def run_task(task: str):
-    result = subprocess.run(
-        ["python", "inference.py", "--task", task],
-        capture_output=True,
-        text=True
-    )
-    return {"output": result.stdout}
+[tool.openenv]
+entry_point = "app:app"
