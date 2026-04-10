@@ -1,18 +1,29 @@
 name: incident-env
-version: "1.0"
-description: "Customer incident simulation"
-environment:
-  entrypoint: env.environment.py
+version: "1.0.0"
+description: >
+  Customer incident resolution environment for training AI agents in
+  multi-step enterprise support workflows. Enforces sequential decision-making
+  and penalizes inefficient workflows.
+entry_point: env/environment.py
+observation_model: env.models.Observation
+action_model: env.models.Action
+reward_model: env.models.Reward
 tasks:
   - id: easy
+    name: easy
     file: env.tasks:run_easy_task
     grader: env.grader:grade_easy_task
-    description: "classify issue correctly"
+    description: "Classify customer issue correctly in 1-2 steps"
+    difficulty: easy
   - id: medium
+    name: medium
     file: env.tasks:run_medium_task
     grader: env.grader:grade_medium_task
-    description: "classify + respond correctly"
+    description: "Classify and respond to customer issue in 2-3 steps"
+    difficulty: medium
   - id: hard
+    name: hard
     file: env.tasks:run_hard_task
     grader: env.grader:grade_hard_task
-    description: "handle angry customer + escalate properly + resolve issue"
+    description: "Handle angry premium customer: classify, escalate, assign team in 4-5 steps"
+    difficulty: hard

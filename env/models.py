@@ -1,6 +1,6 @@
 """
 Project: Incident Resolution Environment
-Built by: Vebnox (vebnox.com)
+Built by: Vebnox
 """
 from pydantic import BaseModel
 from typing import Literal, Optional, List

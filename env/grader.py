@@ -1,6 +1,6 @@
 """
 Project: Incident Resolution Environment
-Built by: Vebnox (vebnox.com)
+Built by: Vebnox
 """
 def grade_easy_task(env_state, final_score: float) -> float:
     if env_state.get('crm_status') == 'Failed_Sequence':

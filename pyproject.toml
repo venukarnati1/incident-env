@@ -1,17 +1,44 @@
+[build-system]
+requires = ["setuptools>=68.0", "wheel"]
+build-backend = "setuptools.backends.legacy:build"
+
 [project]
 name = "incident-env"
-version = "0.1.0"
+version = "1.0.0"
+description = "Customer incident resolution environment for training AI agents in multi-step enterprise support workflows."
+readme = "README.md"
 requires-python = ">=3.10"
-
+license = { text = "Copyright (c) 2026 Vebnox" }
+authors = [
+  { name = "Vebnox", email = "hello@vebnox.com" }
+]
+keywords = ["openenv", "reinforcement-learning", "ai-agent", "customer-support", "simulation"]
+classifiers = [
+  "Programming Language :: Python :: 3",
+  "Programming Language :: Python :: 3.10",
+  "Programming Language :: Python :: 3.11",
+  "License :: Other/Proprietary License",
+  "Operating System :: OS Independent",
+  "Topic :: Scientific/Engineering :: Artificial Intelligence",
+]
 dependencies = [
-    "fastapi",
-    "uvicorn",
-    "pydantic",
-    "openenv-core>=0.2.0"
+  "fastapi==0.111.0",
+  "uvicorn==0.29.0",
+  "requests==2.31.0",
+  "pydantic==2.7.1",
+  "openenv-core>=0.2.0",
 ]
 
+[project.optional-dependencies]
+dev = ["pytest", "httpx"]
+
 [project.scripts]
+incident-env = "inference:run_inference"
 server = "server.app:main"
 
-[tool.openenv]
-entry_point = "server.app:main"
+[tool.setuptools.packages.find]
+where = ["."]
+include = ["env*", "server*"]
+
+[tool.setuptools.package-data]
+"*" = ["*.yaml", "*.md"]
